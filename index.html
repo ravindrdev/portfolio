@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ravindra Devabhaktuni - Developer & Programmer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+    <header class="header">
+        <a href="#" class="logo"><span>Ravindra</span></a>
+
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+            
+        </ul>
+
+        <i class="fa-solid fa-bars" id="menu-icon"></i>
+
+        <button class="visit-btn" onclick="redirectToLinkedin()">Visit LinkedIn</button>
+
+        <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()">
+            <i class="fa-solid fa-sun" id="sun-icon"></i>
+            <i class="fa-solid fa-moon" id="moon-icon" style="opacity: 0;"></i>
+        </button>
+    </header>
+
+    <section id="about" class="about">
+        <div class="about-container">
+            <img src="MyPic.png" alt="">
+
+            <div class="info-box">
+                <div class="text">
+                    <h3> Hi, I'm </h3>
+                    <h1>
+                        <span class="name-cls">R</span>
+                        <span class="name-cls">a</span>
+                        <span class="name-cls">v</span>
+                        <span class="name-cls">i</span>
+                        <span class="name-cls">n</span>
+                        <span class="name-cls">d</span>
+                        <span class="name-cls">r</span>
+                        <span class="name-cls">a</span>
+                    </h1>
+                    <span id="role" style="color: red;">Developer</span>
+                </div>
+                <div class="btn-group">
+                  <!--  <a href="Ravindra.pdf" class="btn" download="Ravindra_Resume.pdf">Download CV</a>-->
+			<a class="btn" href="#contact">Hire me</a>
+                </div>
+
+                <div class="socials">
+                   <!-- <a href="https://github.com/rbdeva" target="_blank"><i class="fa-brands fa-github"></i></a> -->
+                    <a href="https://www.linkedin.com/in/rdevbha/" target="_blank"><i
+                            class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="experience" class="experience">
+  <h2 class="section-title">Experience</h2>
+
+  <ol class="experience-steps">
+
+    <!-- Current Job (Top) -->
+    <li class="step current">
+      <span class="marker"></span>
+      <div class="content">
+        <h3>Full Stack Developer</h3>
+        <p>CIBC U.S.</p>
+        <span class="badge-now">Present</span>
+      </div>
+    </li>
+
+    <li class="step">
+      <span class="marker"></span>
+      <div class="content">
+        <h3>Full Stack Developer</h3>
+        <p>Bosch</p>
+      </div>
+    </li>
+
+    <li class="step">
+      <span class="marker"></span>
+      <div class="content">
+        <h3>Full Stack Developer</h3>
+        <p>Telstra</p>
+      </div>
+    </li>
+
+    <!-- First Job (Bottom) -->
+    <li class="step">
+      <span class="marker"></span>
+      <div class="content">
+        <h3>Java Developer</h3>
+        <p>HDFC Bank</p>
+      </div>
+    </li>
+
+  </ol>
+
+
+</section>
+
+    <!-- Education -->
+<section id="education" class="education">
+    <h2 class="section-title">Education</h2>
+    <div class="education-container">
+        <div class="education-info">
+            <div class="education-card">
+                <h3>Master of Science in Computer Science</h3>
+                <p>Binghamton University, The State University of New York <em>(a public ivy)</em></p>
+                <p><strong>GPA:</strong> 3.50/4.00</p>
+            </div>
+            <br>
+            <div class="education-card">
+                <h3>Bachelor of Technology in Computer Science</h3>
+                <p>KL University</p>
+                <p><strong>GPA:</strong> 4.00/4.00</p>
+            </div>
+        </div>
+        <div class="education-image">
+            <img src="education-image.svg" alt="Education" />
+        </div>
+    </div>
+</section>
+
+
+
+
+    <section class="contact" id="contact">
+        <div class="input-box">
+            <h2 class="section-title">Contact Me</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <a href="mailto:ravindevbha7@gmail.com" class="contact-link">Email: ravindevbha7@gmail.com</a>
+                </div>
+<!--
+                <div class="contact-item">
+                    <i class="fa-brands fa-linkedin"></i>
+                    <a href="https://www.linkedin.com/in/rbdevabhaktuni/" class="contact-link" target="_blank">LinkedIn
+                        </a>
+                </div>
+-->
+            </div>
+
+            <!-- Email input and submit form -->
+            <form id="emailForm" action="https://formspree.io/f/xnnoeglq" method="POST" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="userEmail">Your Email:</label>
+                    <input type="email" id="userEmail" name="userEmail" placeholder="Enter your email" required>
+                </div>
+                <button type="submit" class="btn">Submit</button>
+            </form>
+            <div id="formMessage"></div> 
+        </div>
+    </section>
+
+    <footer>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <p class="copyright">cc @ Ravindra</p>
+    </footer>
+
+    <script>
+        function redirectToLinkedin() {
+            window.open("https://www.linkedin.com/in/rdevbha/", "_blank");
+        }
+              
+          
+        const form = document.getElementById('emailForm');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); 
+
+            
+            const submitButton = form.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+
+        
+            const formData = new FormData(form);
+
+            
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", form.action, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    const messageElement = document.getElementById("formMessage");
+                    if (xhr.status === 200) {
+                        
+                        alert("Thank you! I will contact you soon.");
+                        window.location.href = "https://rbdeva.github.io"; 
+                    } else {
+                        let Message = "Thank you! I will contact you soon.";
+                        if (xhr.status === 400) {
+                            Message = "There was a problem with the form submission. Please check your input.";
+                        } else if (xhr.status === 500) {
+                            Message = "Server error. Please try again later.";
+                        }
+                        messageElement.innerHTML = `<p>${Message}</p>`;
+                        messageElement.style.color = "red";
+                    }
+                }
+            };
+            xhr.send(formData);  
+        });
+
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle("dark-mode");
+            body.classList.toggle("light-mode");
+
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+            if (body.classList.contains("dark-mode")) {
+                sunIcon.style.opacity = "0";
+                moonIcon.style.opacity = "1";
+                localStorage.setItem('theme', 'dark');
+            } else {
+                sunIcon.style.opacity = "1";
+                moonIcon.style.opacity = "0";
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        window.onload = function () {
+            const savedTheme = localStorage.getItem('theme');
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.body.classList.remove('light-mode');
+                sunIcon.style.opacity = "0";
+                moonIcon.style.opacity = "1";
+            } else {
+                document.body.classList.add('light-mode');
+                document.body.classList.remove('dark-mode');
+                sunIcon.style.opacity = "1";
+                moonIcon.style.opacity = "0";
+            }
+        }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const experienceSection = document.querySelector('.experience');
+    const steps = document.querySelectorAll('.step');
+    const timeline = document.querySelector('.experience-steps::before');
+
+    // Add a class when visible on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                steps.forEach((step, index) => {
+                    step.style.animation = `stepAppear 0.8s ease-out forwards`;
+                    step.style.animationDelay = `${index * 0.3}s`;
+                });
+
+                // Add a class to allow the glowing line to animate only when visible
+                document.querySelector('.experience-steps').classList.add('animate-line');
+            }
+        });
+    }, { threshold: 0.3 }); // Trigger when 30% of the section is visible
+
+    observer.observe(experienceSection);
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const experienceSection = document.querySelector('.experience');
+    const timeline = document.querySelector('.experience-steps');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+entry.isIntersecting && (timeline.classList.remove('active'), void timeline.offsetWidth, timeline.classList.add('active'));
+
+            }
+        });
+    }, { threshold: 0 });
+
+    observer.observe(experienceSection);
+});
+
+
+
+//New animated
+
+const eduCards = document.querySelectorAll('.education-card');
+const eduObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if (e.isIntersecting) {
+      e.target.classList.add('edu-show');
+    } else {
+      // remove to replay when user returns
+      e.target.classList.remove('edu-show');
+      void e.target.offsetWidth; // reflow to reset
+    }
+  });
+},{threshold:0.15});
+eduCards.forEach(c=>eduObs.observe(c));
+
+
+
+   </script>
+</body>
+
+</html>
