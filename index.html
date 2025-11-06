@@ -134,6 +134,8 @@
     </div>
 </section>
 
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EEWRT6GRG8"></script>
 
 
 
@@ -311,8 +313,15 @@ const eduObs = new IntersectionObserver((entries)=>{
 eduCards.forEach(c=>eduObs.observe(c));
 
 
+	window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EEWRT6GRG8');
+
 
    </script>
 </body>
 
 </html>
+
