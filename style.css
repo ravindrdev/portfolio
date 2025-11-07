@@ -143,8 +143,9 @@
         /* Fade in animation */
     }
 
-    .about img {
-        width: 30vw;
+       .about img {
+        width: 39vw;
+        height: 35vw;  
         border-radius: 50%;
         transform: translateX(-100%);
         /* Initially off-screen */
@@ -1044,3 +1045,4 @@ body.light-mode #moon-icon {
   0%,100% { transform: translateY(0) }
   50%     { transform: translateY(-6px) }
 }
+
