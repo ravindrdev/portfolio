@@ -138,15 +138,6 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EEWRT6GRG8"></script>
 
 
-
-    <section class="contact" id="contact">
-        <div class="input-box">
-            <h2 class="section-title">Contact Me</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fa-solid fa-envelope"></i>
-                    <a href="mailto:ravindevbha7@gmail.com" class="contact-link">Email: ravindevbha7@gmail.com</a>
-                </div>
 <!--
                 <div class="contact-item">
                     <i class="fa-brands fa-linkedin"></i>
@@ -154,19 +145,42 @@
                         </a>
                 </div>
 -->
-            </div>
 
-            <!-- Email input and submit form -->
-            <form id="emailForm" action="https://formspree.io/f/xnnoeglq" method="POST" onsubmit="handleSubmit(event)">
-                <div class="form-group">
-                    <label for="userEmail">Your Email:</label>
-                    <input type="email" id="userEmail" name="userEmail" placeholder="Enter your email" required>
-                </div>
-                <button type="submit" class="btn">Submit</button>
-            </form>
-            <div id="formMessage"></div> 
-        </div>
-    </section>
+
+    <!-- AFTER: full contact form -->
+<section id="contact" class="contact">
+  <h2 class="section-title">Contact</h2>
+
+  <div class="contact-wrap">
+    <!-- Left: minimalist form -->
+    <form id="emailForm" action="https://formspree.io/f/xnnoeglq" method="POST" class="contact-form">
+      <input type="text" name="name" placeholder="Your name *" required>
+      <input type="email" name="email" placeholder="Your email *" required>
+      <textarea name="message" rows="4" placeholder="Your message (optional)"></textarea>
+
+      <button type="submit" class="btn">Contact Me</button>
+      <div id="formMessage"></div>
+    </form>
+
+    <!-- Right: contact info -->
+    <aside class="contact-info">
+  <h3>I can also be reached at</h3>
+
+  <p>
+    <i class="fa-solid fa-envelope"></i>
+    <a href="mailto:ravindevbha7@gmail.com" class="contact-link">
+      ravindevbha7@gmail.com
+    </a>
+  </p>
+
+  <div class="social-icons">
+    <a href="https://www.linkedin.com/in/rdevbha/" target="_blank" rel="noopener">
+      <i class="fa-brands fa-linkedin"></i>
+    </a>
+  </div>
+</aside>
+  </div>
+</section>
 
     <footer>
         <ul>
@@ -186,40 +200,40 @@
               
           
         const form = document.getElementById('emailForm');
-        form.addEventListener('submit', function (event) {
-            event.preventDefault(); 
 
-            
-            const submitButton = form.querySelector('button[type="submit"]');
-            submitButton.disabled = true;
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
 
-        
-            const formData = new FormData(form);
+  const submitButton = form.querySelector('button[type="submit"]');
+  const msg = document.getElementById('formMessage');
+  submitButton.disabled = true;
+  msg.textContent = "Sending…";
 
-            
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", form.action, true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    const messageElement = document.getElementById("formMessage");
-                    if (xhr.status === 200) {
-                        
-                        alert("Thank you! I will contact you soon.");
-                        window.location.href = "https://rbdeva.github.io"; 
-                    } else {
-                        let Message = "Thank you! I will contact you soon.";
-                        if (xhr.status === 400) {
-                            Message = "There was a problem with the form submission. Please check your input.";
-                        } else if (xhr.status === 500) {
-                            Message = "Server error. Please try again later.";
-                        }
-                        messageElement.innerHTML = `<p>${Message}</p>`;
-                        messageElement.style.color = "red";
-                    }
-                }
-            };
-            xhr.send(formData);  
-        });
+  const formData = new FormData(form); // now includes name, email, message
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", form.action, true);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        msg.style.color = "green";
+        msg.textContent = "Thanks! I’ll reach out soon.";
+        form.reset();
+      } else {
+        msg.style.color = "red";
+        msg.textContent =
+          xhr.status === 400
+            ? "There was a problem with the form submission. Please check your input."
+            : xhr.status === 500
+            ? "Thanks! I’ll reach out soon."
+            : "Thanks! I’ll reach out soon.";
+      }
+      submitButton.disabled = false;
+    }
+  };
+  xhr.send(formData);
+});
+
 
         function toggleTheme() {
             const body = document.body;
@@ -257,43 +271,32 @@
         }
 
 document.addEventListener("DOMContentLoaded", function () {
-    const experienceSection = document.querySelector('.experience');
-    const steps = document.querySelectorAll('.step');
-    const timeline = document.querySelector('.experience-steps::before');
+  const expSection = document.querySelector(".experience");
+  const timeline   = document.querySelector(".experience-steps");
+  const steps      = document.querySelectorAll(".experience-steps .step");
 
-    // Add a class when visible on scroll
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                steps.forEach((step, index) => {
-                    step.style.animation = `stepAppear 0.8s ease-out forwards`;
-                    step.style.animationDelay = `${index * 0.3}s`;
-                });
-
-                // Add a class to allow the glowing line to animate only when visible
-                document.querySelector('.experience-steps').classList.add('animate-line');
-            }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // reset step animations
+        steps.forEach(s => {
+          s.style.animation = "none";
+          s.offsetHeight; // reflow
+          s.style.animation = "";
         });
-    }, { threshold: 0.3 }); // Trigger when 30% of the section is visible
+        // retrigger the container (line + steps)
+        timeline.classList.remove("active");
+        timeline.offsetWidth; // reflow
+        timeline.classList.add("active");
+      } else {
+        // optional reset so it replays on re-enter
+        timeline.classList.remove("active");
+      }
+    });
+  }, { threshold: 0.25, rootMargin: "-10% 0px -10% 0px" });
 
-    observer.observe(experienceSection);
+  io.observe(expSection);
 });
-document.addEventListener("DOMContentLoaded", function () {
-    const experienceSection = document.querySelector('.experience');
-    const timeline = document.querySelector('.experience-steps');
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-entry.isIntersecting && (timeline.classList.remove('active'), void timeline.offsetWidth, timeline.classList.add('active'));
-
-            }
-        });
-    }, { threshold: 0 });
-
-    observer.observe(experienceSection);
-});
-
 
 
 //New animated
