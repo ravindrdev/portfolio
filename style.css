@@ -35,7 +35,7 @@
 
     .logo {
         color: white;
-        font-size: 1.3 rem;
+        font-size: 1.3rem;
         font-weight: 600;
         text-wrap: nowrap;
         transition: 0.3s ease-in-out;
@@ -342,6 +342,7 @@ body.dark-mode {
   text-align: center;
   position: relative;
 }
+/* Vertical timeline line that can replay cleanly */
 .experience-steps {
   position: relative;
   max-width: 900px;
@@ -350,19 +351,19 @@ body.dark-mode {
   list-style: none;
 }
 
-/* Vertical timeline line */
 .experience-steps::before {
   content: "";
   position: absolute;
   left: 24px;
   top: 0.25rem;
-  bottom: 0.25rem;
   width: 4px;
+  height: calc(100% - 0.5rem); /* explicit height instead of top+bottom */
   border-radius: 999px;
   background: linear-gradient(to bottom, var(--grad-1), var(--grad-2));
   opacity: 0.25;
+  transform-origin: top;
+  transform: scaleY(0); /* start collapsed */
 }
-
 /* Each step */
 .step {
   position: relative;
@@ -486,22 +487,21 @@ body.dark-mode .step.current .content {
 /* Initial state — no animation until scrolled */
 .experience-steps,
 .step {
-    opacity: 0;
-    transform: translateY(40px);
+  opacity: 0;
+  transform: translateY(40px);
 }
 
 /* When active class is added, run animations */
-.experience-steps.active {
-    opacity: 1;
-}
+.experience-steps.active { opacity: 1; }
+
 
 .experience-steps.active::before {
-    animation: growLine 2s ease-in-out forwards;
+  animation: growLine 1.2s ease-out forwards;
 }
 
 /* Animate each step one by one */
 .experience-steps.active .step {
-    animation: stepAppear 0.8s ease-out forwards;
+  animation: stepAppear 0.8s ease-out forwards;
 }
 
 .experience-steps.active .step:nth-child(1) { animation-delay: 0.2s; }
@@ -511,15 +511,13 @@ body.dark-mode .step.current .content {
 
 /* Keyframes */
 @keyframes growLine {
-    from { height: 0; }
-    to { height: 100%; }
+  to { transform: scaleY(1); }
 }
 
 @keyframes stepAppear {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
 
 
 
@@ -717,7 +715,7 @@ body.dark-mode .experience-card::after {
             color: #005bb5;
         }
 
-
+/*
     .input-box {
         display: flex;
         flex-direction: column;
@@ -727,20 +725,58 @@ body.dark-mode .experience-card::after {
         gap: 2rem;
         margin-top: 5rem;
     }
+*/
 
-    .input-box input {
-        border-radius: 3rem;
-        border: 2px solid black;
-        padding: 2rem 8rem;
-        font-size: 3rem;
-    }
+    /* Contact Form Inputs (Better size) */
 
 
-    .input-box input::placeholder {
-        font-size: 3rem;
+    /* ========== CONTACT: LAYOUT & SIZING (AFTER) ========== */
 
-    }
+/* Wider container so inputs feel roomy; left-aligned text */
 
+
+/* Desktop: Name + Email side-by-side; stack on mobile */
+
+
+/* Labels: always visible in both themes */
+.form-group { margin: 0 0 1rem 0; }    /* consistent field block spacing */
+.form-group label {
+  display: block;
+  margin: 0 0 8px 0;                  /* clear gap above every input */
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: inherit;
+}
+
+/* Inputs & textarea — bigger click area, consistent visuals */
+
+
+/* Optional helper for inline feedback */
+.form-message {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+}
+
+/* ===== THEME SUPPORT ===== */
+
+/* Light mode */
+
+
+
+/* Buttons (unchanged, but looks good with the new form) */
+
+
+
+/* Placeholder size fixed */
+
+
+/* Focus Effect */
+
+
+
+
+    
+/*
     .input {
         position: relative;
 
@@ -755,6 +791,7 @@ body.dark-mode .experience-card::after {
         left: 10px;
         transform: translate(50%, -50%);
     }
+        */
 
 
     footer {
@@ -789,8 +826,7 @@ body.dark-mode .experience-card::after {
     .contact-item i { color: #000; }                 /* light mode */
 body.dark-mode .contact-item i { color: #fff; }  /* dark mode */
 
-.contact .input-box { color: #000; }
-body.dark-mode .contact .input-box { color: #fff; }
+
 
 
     /* Responsiveness */
@@ -986,76 +1022,138 @@ body.dark-mode .contact .input-box { color: #fff; }
     Contact form
     */
 
-    .contact .input-box {
-    /*background-color: #222;*/
-    padding: 30px;
-    border-radius: 8px;
-    color: white;
-    max-width: 500px;
-    margin: auto;
+
+
+    /* ===== CONTACT FORM: final, conflict-free ===== */
+
+/* Layout: form on left, card on right */
+.contact-wrap{
+  display:grid;
+  grid-template-columns: 1fr 340px;
+  gap:2rem;
+  align-items:start;
+}
+@media (max-width: 900px){
+  .contact-wrap{ grid-template-columns: 1fr; }
 }
 
-.form-group {
-    margin-bottom: 15px;
+/* Right side card */
+.contact-right .contact-card {
+  border: 2px solid #000;
+  border-radius: 20px;
+  padding: 1rem 1.25rem;
+  background: #fff;
+  color: #000;
+  margin-top: 15rem;  
+}
+body.dark-mode .contact-right .contact-card{
+  background:#1b1b1b; color:#fff; border-color:#333;
 }
 
-.form-group input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    /*border: 1px solid #333;*/
-    border-radius: 4px;
-    /*background-color: #555*/;
-
-    color: black;
+/* Two-column for name + email */
+#emailForm .form-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:1rem;
+  margin-bottom:1rem;
+}
+@media (max-width:640px){
+  #emailForm .form-grid{ grid-template-columns:1fr; }
 }
 
-.form-group input:focus {
-    border-color: #f7ba34;
-    outline: none;
+/* Field groups you actually use: .fg */
+#emailForm .fg{ margin:0 0 1rem 0; }
+#emailForm .fg label{
+  display:block;
+  margin:0 0 8px 0;
+  font-weight:600;
+  font-size:.95rem;
+  color:inherit;
+}
+#emailForm .fg input,
+#emailForm .fg textarea{
+  width:100%;
+  font-size:1rem;
+  line-height:1.5;
+  padding:1rem 1.1rem;
+  border:2px solid #000;
+  border-radius:12px;
+  background:#fff;
+  color:#000;
+  transition:border-color .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+}
+#emailForm .fg textarea{
+  min-height:200px;
+  resize:vertical;
+}
+#emailForm .fg input::placeholder,
+#emailForm .fg textarea::placeholder{ opacity:.75; }
+
+/* Focus */
+#emailForm .fg input:focus,
+#emailForm .fg textarea:focus{
+  outline:none;
+  border-color:#f7ba34;
+  box-shadow:0 0 0 3px rgba(247,186,52,.25);
 }
 
-.btn {
-    color: black;
-    padding: 10px 20px;
-    cursor: pointer;
-    border: 2px solid black;
-    border-radius: 3rem;
-    margin-top: 10px;
-    transition: background-color 0.3s;
-    font-weight: 500;
-    text-wrap: nowrap;
+/* Submit + response text */
+#emailForm .btn{ margin-top:12px; }
+#formMessage{ margin-top:.75rem; font-size:.95rem; }
+
+/* Dark mode */
+body.dark-mode #emailForm .fg input,
+body.dark-mode #emailForm .fg textarea{
+  background:#1b1b1b; color:#fff; border-color:#333;
+}
+body.dark-mode #emailForm .fg input::placeholder,
+body.dark-mode #emailForm .fg textarea::placeholder{ color:#bbb; }
+
+
+    /* Contact form container sizing */
+
+
+
+
+.optional {
+  font-weight: 500;
+  opacity: 0.7;
 }
 
-.btn:hover {
-    background-color: black;
-    color: white;
+
+
+
+
+/* Helper text area for responses */
+.form-message {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
 }
+
+/* Light mode visibility */
+
+
+
+
+
+
+
 
 
 /* Light Mode */
 
 
 /* Dark Mode */
-body.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-}
+
 
 .dark-mode .header {
     background-color: #1f1f1f;
 }
 
-.dark-mode .btn {
-    background-color: #555555;
-}
-.dark-mode h2{
-    color: white;
-}
 
-.dark-mode footer ul li a {
-    color: white;
-}
+
+
+
 
 
 
@@ -1113,4 +1211,239 @@ body.light-mode #moon-icon {
   0%,100% { transform: translateY(0) }
   50%     { transform: translateY(-6px) }
 }
-/* */
+
+
+:root{
+  --bg:#ffffff;
+  --text:#000000;
+  --muted:#2b2b2b;
+  --card:#ffffff;
+  --cardBorder:#000000;
+}
+body.dark-mode{
+  --bg:#0d0d0d;
+  --text:#ffffff;
+  --muted:#e8e8e8;
+  --card:#1a1a1a;
+  --cardBorder:#2e2e2e;
+}
+
+/* Apply theme colors globally */
+html, body{
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* Make header actually change between themes */
+body.light-mode header{ background: rgba(255,255,255,0.85); color:#000; }
+body.dark-mode header{ background:#1f1f1f; color:#fff; }
+
+/* Nav links inherit theme */
+header .nav-links a{ color:inherit; }
+header .nav-links a::before{
+  background: linear-gradient(to right, rgb(0,157,255), rgb(255,0,255));
+}
+
+/* Buttons adapt to theme */
+.btn{
+  border-color: var(--text);
+  color: var(--text);
+  background: transparent;
+}
+.btn:hover{
+  background: var(--text);
+  color: var(--bg);
+}
+
+/* Section titles + common text use theme color */
+.section-title,
+footer ul li a,
+.contact-link,
+.skill-card span{
+  color: var(--text);
+}
+
+/* Experience cards + markers use themed surfaces */
+.step .content{
+  background: var(--card);
+  color: var(--text);
+  border-color: var(--cardBorder);
+}
+.marker{
+  background: var(--card);
+}
+
+/* Contact card (right column) follows theme too) */
+.contact-right .contact-card{
+  background: var(--card);
+  color: var(--text);
+  border-color: var(--cardBorder);
+}
+
+/* Inputs in dark mode already handled below, keep for safety */
+body.dark-mode #emailForm .fg input,
+body.dark-mode #emailForm .fg textarea{
+  background:#1b1b1b; color:#fff; border-color:#333;
+}
+
+
+body.light-mode header {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+}
+
+
+
+/* contact */
+
+/* ===== CONTACT (final) ===== */
+/* ===== CONTACT SECTION ===== */
+.contact {
+  padding: 6rem 12%;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 4rem;
+  font-weight: 600;
+  margin-bottom: 3rem;
+  color: var(--text, #000);
+}
+
+/* Grid layout */
+.contact-wrap {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .contact-wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Form fields */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid var(--text, #000);
+  font-size: 1rem;
+  padding: 0.6rem 0;
+  background: transparent;
+  color: var(--text, #000);
+  outline: none;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--text, #000);
+  opacity: 0.7;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #009dff;
+}
+
+/* Submit button */
+.contact-form .btn {
+  width: fit-content;
+  background: #000;
+  color: #fff;
+  padding: 0.8rem 2rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.contact-form .btn:hover {
+  background: #009dff;
+}
+
+/* Form message text */
+#formMessage {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+}
+
+/* Right info side */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 4rem;
+}
+
+.contact-info h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text, #000);
+}
+
+.contact-info p {
+  color: var(--text, #000);
+}
+
+.contact-link {
+  color: var(--text, #000);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.contact-link:hover {
+  color: #009dff;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1.25rem;
+  font-size: 1.35rem;
+}
+
+.social-icons a {
+  color: var(--text, #000);
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.social-icons a:hover {
+  color: #009dff;
+  transform: translateY(-2px);
+}
+
+/* Dark mode tweaks */
+body.dark-mode .contact-form input,
+body.dark-mode .contact-form textarea {
+  color: #fff;
+  border-bottom-color: #bbb;
+}
+
+
+.contact-info p {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* spacing between icon and text */
+  font-size: 1.1rem;
+  color: var(--text, #000);
+}
+
+.contact-info i {
+  font-size: 1.2rem;
+  color: var(--text, #000);
+}
+
+body.dark-mode .contact-info i {
+  color: #fff;
+}
+
