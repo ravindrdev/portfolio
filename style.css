@@ -137,9 +137,7 @@
         align-items: center;
         justify-content: center;
         gap: 10rem;
-        opacity: 0;
         /* Hide initially */
-        animation: fadeIn 1s ease-in-out forwards;
         /* Fade in animation */
     }
 
@@ -150,9 +148,6 @@
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 50%;
-    transform: translateX(-100%);  /* Initially off-screen */
-    opacity: 0;
-    animation: slideInLeft 1s ease-out forwards; /* Slide-in animation */
     transition: width 0.3s ease;
 }
 
@@ -211,10 +206,6 @@
         align-items: center;
         justify-content: center;
         gap: 1.5rem;
-        transform: translateX(100%);
-        /* Initially off-screen */
-        animation: slideInRight 1s ease-out forwards;
-        /* Slide-in animation */
 
     }
 
@@ -1489,6 +1480,11 @@ body.dark-mode .contact-info i {
   opacity: 1;
   transform: translateY(0);
 }
+
+.reveal-item { transition-delay: var(--d, 0ms); }
+
+
+
 
 
 
