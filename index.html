@@ -149,38 +149,40 @@
 
     <!-- AFTER: full contact form -->
 <section id="contact" class="contact">
-  <h2 class="section-title">Contact</h2>
+  <h2 class="section-title reveal-item">Contact</h2>
 
   <div class="contact-wrap">
-    <!-- Left: minimalist form -->
     <form id="emailForm" action="https://formspree.io/f/xnnoeglq" method="POST" class="contact-form">
-      <input type="text" name="name" placeholder="Your name *" required>
-      <input type="email" name="email" placeholder="Your email *" required>
-      <textarea name="message" rows="4" placeholder="Your message (optional)"></textarea>
+<div class="reveal-item"><input type="text" name="name" placeholder="Your name *" required></div>
+<div class="reveal-item"><input type="email" name="email" placeholder="Your email *" required></div>
+<div class="reveal-item"><textarea name="message" rows="4" placeholder="Your message (optional)"></textarea></div>
+<div class="reveal-item"><button type="submit" class="btn">Contact Me</button></div>
+<div class="reveal-item" id="formMessage"></div>
 
-      <button type="submit" class="btn">Contact Me</button>
-      <div id="formMessage"></div>
     </form>
 
-    <!-- Right: contact info -->
     <aside class="contact-info">
-  <h3>I can also be reached at</h3>
-
-  <p>
-    <i class="fa-solid fa-envelope"></i>
-    <a href="mailto:ravindevbha7@gmail.com" class="contact-link">
-      ravindevbha7@gmail.com
-    </a>
-  </p>
-
-  <div class="social-icons">
-    <a href="https://www.linkedin.com/in/rdevbha/" target="_blank" rel="noopener">
-      <i class="fa-brands fa-linkedin"></i>
-    </a>
+  <div class="reveal-item"><h3>I can also be reached at</h3></div>
+  <div class="reveal-item">
+    <p><i class="fa-solid fa-envelope"></i>
+      <a href="mailto:ravindevbha7@gmail.com" class="contact-link">ravindevbha7@gmail.com</a>
+    </p>
+  </div>
+  <div class="reveal-item">
+    <div class="social-icons">
+      <a href="https://www.linkedin.com/in/rdevbha/" target="_blank" rel="noopener">
+        <i class="fa-brands fa-linkedin"></i>
+      </a>
+    </div>
   </div>
 </aside>
+
   </div>
 </section>
+
+
+<button id="backTop" aria-label="Back to top">↑</button>
+
 
     <footer>
         <ul>
@@ -200,38 +202,34 @@
               
           
         const form = document.getElementById('emailForm');
+const msg = document.getElementById('formMessage');
 
-form.addEventListener('submit', function (event) {
-  event.preventDefault();
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-  const submitButton = form.querySelector('button[type="submit"]');
-  const msg = document.getElementById('formMessage');
-  submitButton.disabled = true;
+  const formData = new FormData(form);
+  msg.style.color = "inherit";
   msg.textContent = "Sending…";
 
-  const formData = new FormData(form); // now includes name, email, message
+  try {
+    const res = await fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: { "Accept": "application/json" }
+    });
 
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", form.action, true);
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-      if (xhr.status >= 200 && xhr.status < 300) {
-        msg.style.color = "green";
-        msg.textContent = "Thanks! I’ll reach out soon.";
-        form.reset();
-      } else {
-        msg.style.color = "red";
-        msg.textContent =
-          xhr.status === 400
-            ? "There was a problem with the form submission. Please check your input."
-            : xhr.status === 500
-            ? "Thanks! I’ll reach out soon."
-            : "Thanks! I’ll reach out soon.";
-      }
-      submitButton.disabled = false;
+    if (res.ok) {
+      msg.style.color = "green";
+      msg.textContent = "Thanks! I’ll reach out soon.";
+      form.reset();
+    } else {
+      msg.style.color = "red";
+      msg.textContent = "There was a problem. Please try again.";
     }
-  };
-  xhr.send(formData);
+  } catch (err) {
+    msg.style.color = "red";
+    msg.textContent = "Network error. Please try again.";
+  }
 });
 
 
@@ -298,6 +296,23 @@ document.addEventListener("DOMContentLoaded", function () {
   io.observe(expSection);
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const titles = document.querySelectorAll(".section-title");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      } else {
+        // Optional: remove to re-trigger when scrolling back
+        entry.target.classList.remove("show");
+      }
+    });
+  }, { threshold: 0.3 });
+
+  titles.forEach(title => observer.observe(title));
+});
+
 
 //New animated
 
@@ -321,6 +336,57 @@ eduCards.forEach(c=>eduObs.observe(c));
   gtag('js', new Date());
 
   gtag('config', 'G-EEWRT6GRG8');
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const contactSection = document.getElementById("contact");
+  const items = contactSection.querySelectorAll(".reveal-item");
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // stagger in
+        items.forEach((el, i) => {
+          el.style.transitionDelay = (i * 120) + "ms";
+          el.classList.add("show");
+        });
+      } else {
+        // optional: reset so it replays if user leaves and comes back
+        items.forEach(el => {
+          el.style.transitionDelay = "0ms";
+          el.classList.remove("show");
+        });
+      }
+    });
+  }, { threshold: 0.25 });
+
+  io.observe(contactSection);
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const contactSection = document.getElementById("contact");
+  const items = contactSection.querySelectorAll(".reveal-item");
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        items.forEach((el, i) => {
+          el.style.transitionDelay = (i * 120) + "ms";
+          el.classList.add("show");
+        });
+      } else {
+        // reset so animation can replay when user scrolls away and back
+        items.forEach(el => {
+          el.style.transitionDelay = "0ms";
+          el.classList.remove("show");
+        });
+      }
+    });
+  }, { threshold: 0.25 });
+
+  io.observe(contactSection);
+});
 
 
    </script>
