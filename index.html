@@ -34,37 +34,40 @@
     </header>
 
     <section id="about" class="about">
-        <div class="about-container">
-            <img src="Pic.jpeg" alt="">
+  <div class="about-container">
+    <div class="reveal-item" style="--d:0ms">
+      <img src="Pic.jpeg" alt="">
+    </div>
 
-            <div class="info-box">
-                <div class="text">
-                    <h3> Hi, I'm </h3>
-                    <h1>
-                        <span class="name-cls">R</span>
-                        <span class="name-cls">a</span>
-                        <span class="name-cls">v</span>
-                        <span class="name-cls">i</span>
-                        <span class="name-cls">n</span>
-                        <span class="name-cls">d</span>
-                        <span class="name-cls">r</span>
-                        <span class="name-cls">a</span>
-                    </h1>
-                    <span id="role" style="color: red;">Developer</span>
-                </div>
-                <div class="btn-group">
-                  <!--  <a href="Ravindra.pdf" class="btn" download="Ravindra_Resume.pdf">Download CV</a>-->
-			<a class="btn" href="#contact">Contact me</a>
-                </div>
+    <div class="info-box">
+      <div class="text reveal-item" style="--d:120ms">
+        <h3>Hi, I'm</h3>
+        <h1>
+          <span class="name-cls">R</span>
+          <span class="name-cls">a</span>
+          <span class="name-cls">v</span>
+          <span class="name-cls">i</span>
+          <span class="name-cls">n</span>
+          <span class="name-cls">d</span>
+          <span class="name-cls">r</span>
+          <span class="name-cls">a</span>
+        </h1>
+        <span id="role">Developer</span>
+      </div>
 
-                <div class="socials">
-                   <!-- <a href="https://github.com/rbdeva" target="_blank"><i class="fa-brands fa-github"></i></a> -->
-                    <a href="https://www.linkedin.com/in/rdevbha/" target="_blank"><i
-                            class="fa-brands fa-linkedin"></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
+      <div class="btn-group reveal-item" style="--d:240ms">
+        <a class="btn" href="#contact">Contact me</a>
+      </div>
+
+      <div class="socials reveal-item" style="--d:360ms">
+        <a href="https://www.linkedin.com/in/rdevbha/" target="_blank">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section id="experience" class="experience">
   <h2 class="section-title">Experience</h2>
@@ -386,6 +389,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { threshold: 0.25 });
 
   io.observe(contactSection);
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const reveals = document.querySelectorAll(".reveal-item");
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      } else {
+        // remove to allow replay when scrolling back
+        entry.target.classList.remove("show");
+      }
+    });
+  }, { threshold: 0.25, rootMargin: "0px 0px -10% 0px" });
+
+  reveals.forEach(el => io.observe(el));
 });
 
 
